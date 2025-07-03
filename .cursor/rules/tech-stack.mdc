@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+The following technologies have been chosen for this project. Please adhere to this stack when developing new features.
+
+- **Frontend (Web):** SvelteKit with Tailwind CSS.
+- **Frontend (Farcaster Frames):** Next.js with the `@farcaster/core` library.
+- **Backend API:** Node.js with TypeScript.
+- **Database:**
+    - **Primary:** PostgreSQL for storing event data.
+    - **Queue/Scheduler:** Redis for managing reminder jobs.
+- **Authentication:** Sign-In with Ethereum (SIWE).
+- **Primary Integrations:**
+    - **Alchemy:** For Webhooks (event listening), Notify (email/SMS), and potentially IPFS storage.

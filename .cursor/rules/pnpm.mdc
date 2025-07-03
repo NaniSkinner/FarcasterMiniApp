@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+This project uses `pnpm` as the package manager and is structured as a monorepo with workspaces.
+
+- **Package Manager:** Always use `pnpm` for installing, removing, and managing dependencies. Do not use `npm` or `yarn`.
+- **Workspaces:** The project is divided into the following workspaces:
+    - `apps/web`: The SvelteKit frontend application.
+    - `packages/core`: Shared types, utilities, and core logic.
+    - `services/listener`: The backend service for the Alchemy webhook listener.
+- **Installing Dependencies:**
+    - To add a dependency to a specific workspace, use the `--filter` flag: `pnpm --filter <workspace-name> add <package-name>`
+    - For example, to add a package to the web app: `pnpm --filter web add <package-name>`
+    - To add a dev dependency, use the `-D` flag.
+- **Running Scripts:** Run scripts within workspaces using `pnpm --filter <workspace-name> <script-name>`.

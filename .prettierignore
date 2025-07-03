@@ -1,0 +1,8 @@
+# Ignore artifacts:
+build
+dist
+.next
+.svelte-kit
+
+# Ignore dependencies:
+node_modules 

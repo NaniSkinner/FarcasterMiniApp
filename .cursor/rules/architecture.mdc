@@ -1,0 +1,34 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+The system is designed with a service-oriented architecture. Here are the key components and their interactions:
+
+1.  **Listener Service (`services/listener`):**
+    - An AWS Lambda function (or similar serverless function) receives events from an Alchemy Webhook.
+    - It parses the event payload and writes the relevant data to the `events` table in the PostgreSQL database.
+    - This service is the primary data ingestion point.
+
+2.  **Scheduler:**
+    - A cron job runs periodically (e.g., every minute).
+    - It queries the database for reminders that need to be sent.
+    - It uses a Redis-backed queue (like a Sorted Set) to manage the schedule of upcoming notifications efficiently.
+
+3.  **API:**
+    - A REST or GraphQL API that serves data to the frontend clients (Web and Farcaster Frame).
+    - Exposes endpoints for `GET /events/upcoming`, `POST /events`, and handling actions like "snooze".
+    - Handles all business logic related to fetching and modifying event data. Note: The API workspace is not yet created.
+
+4.  **Frontend (Web) (`apps/web`):**
+    - A SvelteKit application for the main user dashboard.
+    - Provides UI for adding events, viewing the calendar, and managing settings.
+
+5.  **Frontend (Farcaster Frame):**
+    - A Next.js application responsible for rendering and handling Farcaster Frame interactions.
+    - Shows upcoming events and presents action buttons (e.g., Snooze).
+
+**Data Flow:**
+`Contract Event` -> `Alchemy Webhook` -> `Listener Service` -> `PostgreSQL`
+`Scheduler` -> `PostgreSQL` -> `Notification Service (e.g., Alchemy Notify)` -> `User (Email/Frame)`
+`User` -> `Frontend (Web/Frame)` -> `API` -> `PostgreSQL`

@@ -1,0 +1,27 @@
+{
+  "name": "@chaincal/web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev --port 3003",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.2.5",
+    "@sveltejs/kit": "^2.8.5",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "svelte": "^5.8.0",
+    "svelte-check": "^4.0.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.14",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.0"
+  },
+  "type": "module"
+}

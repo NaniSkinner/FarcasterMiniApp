@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+The 3-day hackathon timeline requires a strict focus on the MVP. Features outside this scope should be considered stretch goals and deferred until after the initial build is complete.
+
+**Core MVP Features (In Scope):**
+
+1.  **Event Subscription:**
+    - Manual entry of contract address and event signature.
+    - A small, curated list of preset contracts for easy onboarding.
+2.  **Core Data Pipeline:**
+    - The full flow: Alchemy Webhook -> Listener Service -> PostgreSQL. This is the #1 priority.
+3.  **Farcaster Frame:**
+    - A Frame that lists upcoming events.
+    - A "snooze" action button on the Frame.
+4.  **Notifications:**
+    - Email notifications via Alchemy Notify or a similar service.
+5.  **Web Dashboard:**
+    - A simple list view of upcoming events.
+    - A modal to add new events.
+6.  **iCal Export:**
+    - A dynamic `.ics` feed endpoint.
+
+**Stretch Goals (Out of Scope for MVP):**
+
+- Publicly shareable calendar links.
+- Advanced snooze logic (e.g., custom snooze times).
+- Direct OAuth integration with Google/Outlook calendars.
+- Cross-chain support beyond Ethereum mainnet and major L2s.
+- Enterprise features or admin dashboards.
+- Mobile push notifications.
