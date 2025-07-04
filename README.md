@@ -2,17 +2,17 @@
 
 **Your on-chain calendar assistant that never misses a blockchain event.**
 
-A powerful Farcaster Mini App that captures on-chain events and sends intelligent reminders via email and Frame notifications. Perfect for DeFi users, developers, and anyone who needs to stay on top of blockchain activity.
+A powerful Farcaster Mini App that captures on-chain events and delivers seamless notifications via email, Frame interactions, and calendar integrations. Perfect for DeFi users, developers, and anyone who needs to stay on top of blockchain activity.
 
 ## What is ChainCal?
 
-ChainCal is an AI-powered blockchain event notification system that:
+ChainCal is a comprehensive blockchain event monitoring and notification platform that:
 
 - **🔔 Captures real-time blockchain events** via Alchemy webhooks
 - **📧 Sends smart email reminders** when events are due
 - **🖼️ Displays events in Farcaster Frames** with interactive snooze buttons
 - **📅 Provides iCal feeds** for seamless calendar integration
-- **⚡ Processes events instantly** with Redis-powered scheduling
+- **⚡ Manages event scheduling** with Redis-powered queue system
 
 Never miss another important on-chain event - from token transfers to governance votes to DeFi liquidations.
 
