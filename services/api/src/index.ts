@@ -22,7 +22,16 @@ const app = express()
 const port = process.env.API_PORT || 3001
 
 // Middleware
-app.use(cors())
+const corsOptions = {
+  origin: [
+    'http://localhost:3003', // SvelteKit dev server
+    'http://localhost:3000', // Frame dev server
+    // Add any other origins you need to support
+  ],
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
 // Request logging middleware

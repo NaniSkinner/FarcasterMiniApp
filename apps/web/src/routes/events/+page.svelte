@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   
-  let events = [];
+  let events: any[] = [];
   let loading = true;
-  let error = null;
+  let error: string | null = null;
   let showAddForm = false;
   
   // Form data
-  let formData = {
+  let formData: {
+    contractAddress: string;
+    eventSignature: string;
+    nextTimestamp: string;
+  } = {
     contractAddress: '',
     eventSignature: '',
     nextTimestamp: ''
@@ -43,7 +47,7 @@
       events = data.events;
       error = null;
     } catch (err) {
-      error = err.message;
+      error = err instanceof Error ? err.message : 'An error occurred';
       console.error('Error loading events:', err);
     } finally {
       loading = false;
@@ -68,11 +72,11 @@
       showAddForm = false;
       await loadEvents();
     } catch (err) {
-      error = err.message;
+      error = err instanceof Error ? err.message : 'An error occurred';
     }
   }
   
-  function usePreset(preset) {
+  function usePreset(preset: { contractAddress: string; eventSignature: string; name: string }) {
     formData.contractAddress = preset.contractAddress;
     formData.eventSignature = preset.eventSignature;
     // Set default to 1 hour from now
@@ -80,7 +84,7 @@
     formData.nextTimestamp = oneHourFromNow.toISOString().slice(0, 16);
   }
   
-  function formatDate(dateString) {
+  function formatDate(dateString: string) {
     return new Date(dateString).toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -90,15 +94,25 @@
     });
   }
   
-  function formatContract(address) {
+  function formatContract(address: string) {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   }
   
-  function getEventName(signature) {
+  function getEventName(signature: string) {
     return signature.split('(')[0];
   }
   
-  onMount(loadEvents);
+  // Load events when component mounts with fallback for reliability
+  onMount(() => {
+    loadEvents();
+  });
+  
+  // Fallback: Ensure data loads even if onMount has timing issues
+  setTimeout(() => {
+    if (loading) {
+      loadEvents();
+    }
+  }, 1000);
 </script>
 
 <svelte:head>
@@ -138,7 +152,7 @@
       
       <!-- Presets -->
       <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Quick Setup (Optional)</label>
+        <p class="block text-sm font-medium text-gray-700 mb-2">Quick Setup (Optional)</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           {#each presets as preset}
             <button

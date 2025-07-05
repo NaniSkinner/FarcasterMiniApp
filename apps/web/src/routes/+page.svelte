@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   
-  let upcomingEvents = [];
-  let allEvents = [];
+  let upcomingEvents: any[] = [];
+  let allEvents: any[] = [];
   let loading = true;
-  let error = null;
+  let error: string | null = null;
   
   const API_BASE = 'http://localhost:3001';
   
@@ -26,14 +26,14 @@
       
       error = null;
     } catch (err) {
-      error = err.message;
+      error = err instanceof Error ? err.message : 'An error occurred';
       console.error('Error loading data:', err);
     } finally {
       loading = false;
     }
   }
   
-  function formatDate(dateString) {
+  function formatDate(dateString: string) {
     return new Date(dateString).toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -42,15 +42,15 @@
     });
   }
   
-  function formatContract(address) {
+  function formatContract(address: string) {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   }
   
-  function getEventName(signature) {
+  function getEventName(signature: string) {
     return signature.split('(')[0];
   }
   
-  async function snoozeEvent(eventId, duration) {
+  async function snoozeEvent(eventId: number, duration: number) {
     try {
       const response = await fetch(`${API_BASE}/events/${eventId}/snooze`, {
         method: 'PATCH',
@@ -63,11 +63,21 @@
       // Reload data
       await loadData();
     } catch (err) {
-      error = err.message;
+      error = err instanceof Error ? err.message : 'An error occurred';
     }
   }
   
-  onMount(loadData);
+  // Load data when component mounts with fallback for reliability
+  onMount(() => {
+    loadData();
+  });
+  
+  // Fallback: Ensure data loads even if onMount has timing issues
+  setTimeout(() => {
+    if (loading) {
+      loadData();
+    }
+  }, 1000);
 </script>
 
 <svelte:head>
@@ -79,7 +89,9 @@
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
     <p class="mt-2 text-gray-600">Your on-chain calendar and event reminders</p>
-  </div>
+    
+    
+   </div>
 
   {#if loading}
     <div class="flex justify-center py-12">
