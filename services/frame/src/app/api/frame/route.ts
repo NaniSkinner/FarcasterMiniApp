@@ -49,7 +49,101 @@ async function fetchUpcomingEvents(): Promise<Event[]> {
   }
 }
 
+async function snoozeEvent(
+  eventId: number,
+  durationMs: number
+): Promise<boolean> {
+  try {
+    console.log(`🔔 Frame: Snoozing event ${eventId} for ${durationMs}ms`)
+
+    const response = await fetch(`${API_BASE_URL}/events/${eventId}/snooze`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ duration: durationMs }),
+    })
+
+    if (!response.ok) {
+      console.error(
+        `❌ Frame: Failed to snooze event ${eventId}: ${response.status}`
+      )
+      return false
+    }
+
+    console.log(`✅ Frame: Successfully snoozed event ${eventId}`)
+    return true
+  } catch (error) {
+    console.error('❌ Frame: Error snoozing event:', error)
+    return false
+  }
+}
+
 const handleRequest = frames(async (ctx) => {
+  // Check if this is a POST request (button click)
+  const isPost = ctx.request.method === 'POST'
+  const url = new URL(ctx.request.url)
+  const eventId = url.searchParams.get('eventId')
+
+  // Handle snooze action
+  if (isPost && eventId) {
+    const eventIdNum = parseInt(eventId)
+    const oneHourMs = 60 * 60 * 1000 // 1 hour in milliseconds
+
+    console.log(`🔔 Frame: Processing snooze for event ${eventIdNum}`)
+
+    const snoozeSuccess = await snoozeEvent(eventIdNum, oneHourMs)
+
+    if (snoozeSuccess) {
+      // Show success message
+      return {
+        image: `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; background-color: #f0fdf4; font-size: 20px; color: #166534; padding: 40px;">
+            <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
+            <div style="font-weight: bold; margin-bottom: 10px;">Event Snoozed!</div>
+            <div style="font-size: 16px; text-align: center; margin-bottom: 20px;">
+              Reminder moved 1 hour forward
+            </div>
+            <div style="font-size: 14px; color: #065f46;">
+              You'll receive a new notification in 1 hour
+            </div>
+          </div>
+        `,
+        buttons: [
+          { label: 'View All Events', action: 'post', target: '/' },
+          {
+            label: 'Dashboard',
+            action: 'link',
+            target: 'http://localhost:3003',
+          },
+        ],
+      }
+    } else {
+      // Show error message
+      return {
+        image: `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; background-color: #fef2f2; font-size: 20px; color: #dc2626; padding: 40px;">
+            <div style="font-size: 48px; margin-bottom: 20px;">❌</div>
+            <div style="font-weight: bold; margin-bottom: 10px;">Snooze Failed</div>
+            <div style="font-size: 16px; text-align: center; margin-bottom: 20px;">
+              Could not update reminder time
+            </div>
+            <div style="font-size: 14px; color: #7f1d1d;">
+              Please try again or use the web dashboard
+            </div>
+          </div>
+        `,
+        buttons: [
+          { label: 'Try Again', action: 'post', target: '/' },
+          {
+            label: 'Dashboard',
+            action: 'link',
+            target: 'http://localhost:3003',
+          },
+        ],
+      }
+    }
+  }
+
+  // Default behavior: Show upcoming events (GET request or POST without eventId)
   const events = await fetchUpcomingEvents()
 
   if (events.length === 0) {
@@ -63,9 +157,9 @@ const handleRequest = frames(async (ctx) => {
       `,
       buttons: [
         {
-          label: 'View API',
+          label: 'Dashboard',
           action: 'link',
-          target: 'http://localhost:3001/events',
+          target: 'http://localhost:3003',
         },
       ],
     }
