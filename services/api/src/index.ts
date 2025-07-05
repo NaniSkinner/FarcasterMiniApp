@@ -25,7 +25,9 @@ const port = process.env.API_PORT || 3001
 const corsOptions = {
   origin: [
     'http://localhost:3003', // SvelteKit dev server
+    'http://localhost:3004', // SvelteKit dev server (fallback port)
     'http://localhost:3000', // Frame dev server
+    'http://localhost:3002', // Frame dev server (actual port)
     // Add any other origins you need to support
   ],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204

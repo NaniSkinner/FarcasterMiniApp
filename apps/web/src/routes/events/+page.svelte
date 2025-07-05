@@ -56,10 +56,18 @@
   
   async function addEvent() {
     try {
+      // Prepare the data for submission
+      const submitData = {
+        contractAddress: formData.contractAddress,
+        eventSignature: formData.eventSignature,
+        // Convert datetime-local to ISO string if provided
+        nextTimestamp: formData.nextTimestamp ? new Date(formData.nextTimestamp).toISOString() : undefined
+      };
+      
       const response = await fetch(`${API_BASE}/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(submitData)
       });
       
       if (!response.ok) {

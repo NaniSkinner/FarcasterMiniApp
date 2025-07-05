@@ -13,15 +13,28 @@ export async function GET() {
     frame: {
       version: '1',
       name: 'ChainCal - On-Chain Calendar',
-      iconUrl: `${appUrl}/images/icon.png`,
-      homeUrl: `${appUrl}`,
-      imageUrl: `${appUrl}/images/feed.png`,
+      iconUrl: `${appUrl}/images/icon.svg`,
+      homeUrl: `${appUrl}/miniapp`,
+      imageUrl: `${appUrl}/images/feed.svg`,
       screenshotUrls: [],
       tags: ['ethereum', 'calendar', 'defi', 'reminders', 'blockchain'],
       primaryCategory: 'productivity',
       buttonTitle: 'Open ChainCal',
-      splashImageUrl: `${appUrl}/images/splash.png`,
+      splashImageUrl: `${appUrl}/images/splash.svg`,
       splashBackgroundColor: '#f0f8ff',
+    },
+    // Mini App configuration
+    miniApp: {
+      name: 'ChainCal - On-Chain Calendar',
+      description:
+        'Your personal blockchain calendar for smart contract event reminders',
+      iconUrl: `${appUrl}/images/icon.svg`,
+      url: `${appUrl}/miniapp`,
+      manifestUrl: `${appUrl}/.well-known/farcaster.json`,
+      splashImageUrl: `${appUrl}/images/splash.svg`,
+      splashBackgroundColor: '#f0f8ff',
+      tags: ['ethereum', 'calendar', 'defi', 'reminders', 'blockchain'],
+      category: 'productivity',
     },
   }
 

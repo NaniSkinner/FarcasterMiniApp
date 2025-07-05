@@ -58,9 +58,20 @@
 
 ---
 
-## 🔄 **CURRENT PRIORITY: CONVERT FRAME TO MINI APP**
+## 🔄 **CURRENT PRIORITY: MINI APP SDK INTEGRATION (PHASE 2)**
 
-**Status**: Core MVP complete, now converting Farcaster Frame → Mini App for proper publishing
+**Status**: Frame foundation complete, now implementing proper Mini App SDK per [official documentation](https://miniapps.farcaster.xyz/)
+
+**Critical Discovery**: Our current implementation is a **Farcaster Frame**, not a **Mini App**. Mini Apps require:
+
+- Official Farcaster Mini App SDK (not just frames.js)
+- Context API for rich user data
+- Quick Auth for seamless authentication
+- Ethereum wallet integration
+- Native mobile features (notifications, haptics)
+- Proper publishing flow to App Directory
+
+**Current Phase**: Moving from Frame (basic interaction) → Mini App (full native-like experience)
 
 ## 🎉 **MVP FOUNDATION COMPLETE!**
 
@@ -135,16 +146,48 @@
 - [x] **Test Frame Snooze** – Verify snooze updates reminder time via API ✅
 - [ ] **Environment Configuration** – Update hardcoded localhost URLs for deployment readiness
 
-## Day 2.5 – Farcaster Mini App Conversion
+## Day 2.5 – Farcaster Mini App Conversion (REVISED per Official Docs)
 
-- [ ] **Create `farcaster.json` Manifest** – Required manifest file for Mini App publishing
-- [ ] **Add Mini App Images** – Create icon.png, splash.png, feed.png for Mini App
-- [ ] **Configure Mini App Context** – Add user context integration (username, FID, etc.)
-- [ ] **Add Wallet Actions** – Enable users to perform on-chain actions via Farcaster wallet
-- [ ] **Create Mini App Landing Page** – Convert Frame to proper Mini App entry point
-- [ ] **Add Account Association** – Generate domain manifest for publishing
-- [ ] **Test Mini App Locally** – Use cloudflared/ngrok + Farcaster Embed tool
-- [ ] **Publish Mini App** – Submit to Farcaster Mini App directory
+**Reference**: [Farcaster Mini Apps Official Documentation](https://miniapps.farcaster.xyz/)
+
+### 🏗️ **Phase 1: Mini App Foundation (Current)**
+
+- [x] **Create `farcaster.json` Manifest** – Required manifest file for Mini App publishing ✅
+- [x] **Add Mini App Images** – Create icon.png, splash.png, feed.png for Mini App ✅
+- [x] **Basic User Context** – Add frames.js user context integration ✅
+- [ ] **Register Hosted Manifest** – Submit manifest to Farcaster for validation and testing
+
+### 🚀 **Phase 2: Mini App SDK Integration (NEW - CRITICAL)**
+
+- [ ] **Install Farcaster Mini App SDK** – Replace frames.js with official Mini App SDK
+- [ ] **Implement Context API** – Rich user data access via SDK context
+- [ ] **Add Quick Auth** – Seamless user authentication without forms/passwords
+- [ ] **Create Mini App Entry Point** – Convert Frame route to proper Mini App interface
+- [ ] **Implement Share Extensions** – Viral growth mechanics and social sharing
+
+### 💰 **Phase 3: Ethereum Wallet Integration (Core Feature)**
+
+- [ ] **Install Ethereum Wallet SDK** – Enable native wallet interactions
+- [ ] **Add Wallet Connection** – Seamless wallet access for authenticated users
+- [ ] **Implement Transaction Actions** – On-chain event subscriptions and payments
+- [ ] **Add Chain Detection** – Support multiple networks (Ethereum, Base, etc.)
+- [ ] **Error Handling** – Wallet errors, network switching, transaction failures
+
+### 📱 **Phase 4: Native Features (Enhanced UX)**
+
+- [ ] **Mobile Notifications** – Push notifications for event reminders
+- [ ] **Haptic Feedback** – Native mobile interactions
+- [ ] **Back Navigation** – Proper navigation flows within Farcaster
+- [ ] **Mini App Detection** – Detect when running in Farcaster vs browser
+- [ ] **Event System** – Custom events for user interactions
+
+### 🌐 **Phase 5: Publishing & Discovery**
+
+- [ ] **App Discovery Setup** – Optimize for Farcaster Mini App stores
+- [ ] **Social Feed Integration** – 1-click discovery from social feeds
+- [ ] **User Retention Features** – Save to favorites, quick access
+- [ ] **Domain Verification** – Official domain association for publishing
+- [ ] **Submit to App Directory** – Official Farcaster Mini App directory submission
 
 ## Day 3 – Testing & Demo
 
@@ -163,15 +206,79 @@
 - [ ] Frame interactions in Farcaster client
 - [ ] Web dashboard on mobile devices
 
-### 🖼️ **Mini App Testing Checklist:**
+### 🌐 **Step 3.5: Hosted Manifest Registration (NEW - CURRENT PRIORITY)**
+
+**Issue**: Farcaster requires manifest registration before validation tools work properly
+
+**Process**: Register at https://farcaster.xyz/~/developers/hosted-manifests?manage=true
+
+**Tasks**:
+
+- [ ] **Pre-Registration Setup**
+  - [ ] Ensure ngrok tunnel is stable and accessible
+  - [ ] Verify manifest endpoint works: `/.well-known/farcaster.json`
+  - [ ] Test all image assets are accessible via ngrok URLs
+  - [ ] Confirm manifest JSON is valid and complete
+
+- [ ] **Submit to Farcaster Hosted Manifests**
+  - [ ] Navigate to https://farcaster.xyz/~/developers/hosted-manifests?manage=true
+  - [ ] Register base domain: `https://1100-2803-9810-51f9-7010-7482-85d8-aa9b-ef73.ngrok-free.app`
+  - [ ] Submit manifest URL for validation
+  - [ ] Wait for Farcaster approval/validation
+  - [ ] Obtain hosted manifest ID or validation status
+
+- [ ] **Post-Registration Testing**
+  - [ ] Test Mini App in Warpcast Manifest Validator
+  - [ ] Verify Frame renders properly in Farcaster tools
+  - [ ] Test user interactions and personalization
+  - [ ] Confirm "My Stats" button functionality for authenticated users
+
+- [ ] **Documentation**
+  - [ ] Document hosted manifest ID/URL for future reference
+  - [ ] Update deployment notes with registration requirements
+  - [ ] Create troubleshooting guide for manifest issues
+
+**Dependencies**: Requires completed Steps 1-3 (manifest, images, user context) ✅
+
+### 🧪 **Mini App Testing Checklist (Per Official Docs):**
+
+**Phase 1 Tests:**
 
 - [ ] Test Mini App manifest (`/.well-known/farcaster.json`)
 - [ ] Verify Mini App images display correctly (icon, splash, feed)
-- [ ] Test user context integration (username, FID, profile)
-- [ ] Test wallet actions (transaction prompts, chain switching)
-- [ ] Test Mini App in Farcaster Embed tool
-- [ ] Test Mini App on mobile Farcaster client
-- [ ] Verify account association for publishing
+- [ ] Test hosted manifest registration and validation
+
+**Phase 2 Tests (SDK Integration):**
+
+- [ ] Test Mini App SDK initialization and context
+- [ ] Verify Quick Auth flow (automatic user sign-in)
+- [ ] Test Mini App detection (vs browser/Frame mode)
+- [ ] Verify social data access (profile, FID, username)
+- [ ] Test share extensions and viral mechanics
+
+**Phase 3 Tests (Wallet Integration):**
+
+- [ ] Test wallet connection and authentication
+- [ ] Verify transaction prompts and approvals
+- [ ] Test chain detection and network switching
+- [ ] Verify on-chain event subscription transactions
+- [ ] Test error handling (rejected transactions, network errors)
+
+**Phase 4 Tests (Native Features):**
+
+- [ ] Test mobile notifications (push alerts)
+- [ ] Verify haptic feedback on mobile devices
+- [ ] Test back navigation within Farcaster
+- [ ] Verify Mini App-specific features vs web fallbacks
+- [ ] Test custom event system and user interactions
+
+**Phase 5 Tests (Publishing & Discovery):**
+
+- [ ] Test app discovery in Farcaster Mini App stores
+- [ ] Verify 1-click social feed discovery
+- [ ] Test save to favorites functionality
+- [ ] Verify domain association and verification
+- [ ] Test final app directory submission process
 
 ---
 
