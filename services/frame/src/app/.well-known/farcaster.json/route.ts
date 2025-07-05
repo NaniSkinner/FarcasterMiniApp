@@ -4,11 +4,15 @@ const appUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3002'
 
 export async function GET() {
   const farcasterConfig = {
-    // Account association will be filled when publishing
+    // TODO: Generate this using Warpcast mobile app
+    // 1. Open Warpcast → Settings → Developer → Domains
+    // 2. Enter your domain and click "Generate domain manifest"
+    // 3. Replace the empty values below with the generated JSON
     accountAssociation: {
-      header: '',
-      payload: '',
-      signature: '',
+      header: 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9', // REPLACE WITH ACTUAL HEADER
+      payload:
+        'eyJkb21haW4iOiJleGFtcGxlLmNvbSIsImZpZCI6MSwidGltZXN0YW1wIjoxNzM2MTIzNDU2fQ', // REPLACE WITH ACTUAL PAYLOAD
+      signature: 'signature_here', // REPLACE WITH ACTUAL SIGNATURE
     },
     frame: {
       version: '1',
@@ -16,7 +20,7 @@ export async function GET() {
       iconUrl: `${appUrl}/images/icon.svg`,
       homeUrl: `${appUrl}/miniapp`,
       imageUrl: `${appUrl}/images/feed.svg`,
-      screenshotUrls: [],
+      screenshotUrls: [`${appUrl}/images/splash.svg`],
       tags: ['ethereum', 'calendar', 'defi', 'reminders', 'blockchain'],
       primaryCategory: 'productivity',
       buttonTitle: 'Open ChainCal',
@@ -38,5 +42,10 @@ export async function GET() {
     },
   }
 
-  return NextResponse.json(farcasterConfig)
+  return NextResponse.json(farcasterConfig, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+    },
+  })
 }
