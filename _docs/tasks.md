@@ -58,7 +58,11 @@
 
 ---
 
-## 🎉 **CURRENT STATUS: COMPLETE MVP READY FOR PRODUCTION!**
+## 🔄 **CURRENT PRIORITY: CONVERT FRAME TO MINI APP**
+
+**Status**: Core MVP complete, now converting Farcaster Frame → Mini App for proper publishing
+
+## 🎉 **MVP FOUNDATION COMPLETE!**
 
 **✅ ALL CRITICAL FEATURES COMPLETED:**
 
@@ -74,6 +78,16 @@
 - Database timestamp updates working
 - Success/error feedback displayed in Frame
 - Complete end-to-end user flow functional
+
+**🔄 NEXT PHASE: Convert Frame to Mini App**
+
+- Current: Working Farcaster Frame with snooze functionality
+- Goal: Full Farcaster Mini App with user context, wallet actions, and publishing
+
+**📚 Frame vs Mini App Differences:**
+
+- **Frame**: Basic interaction via meta tags, limited functionality
+- **Mini App**: Full web app with user context, wallet integration, discoverable in app directory
 
 ---
 
@@ -121,6 +135,17 @@
 - [x] **Test Frame Snooze** – Verify snooze updates reminder time via API ✅
 - [ ] **Environment Configuration** – Update hardcoded localhost URLs for deployment readiness
 
+## Day 2.5 – Farcaster Mini App Conversion
+
+- [ ] **Create `farcaster.json` Manifest** – Required manifest file for Mini App publishing
+- [ ] **Add Mini App Images** – Create icon.png, splash.png, feed.png for Mini App
+- [ ] **Configure Mini App Context** – Add user context integration (username, FID, etc.)
+- [ ] **Add Wallet Actions** – Enable users to perform on-chain actions via Farcaster wallet
+- [ ] **Create Mini App Landing Page** – Convert Frame to proper Mini App entry point
+- [ ] **Add Account Association** – Generate domain manifest for publishing
+- [ ] **Test Mini App Locally** – Use cloudflared/ngrok + Farcaster Embed tool
+- [ ] **Publish Mini App** – Submit to Farcaster Mini App directory
+
 ## Day 3 – Testing & Demo
 
 - [x] **Configure Gmail SMTP** – Switch from console mode to real email sending.
@@ -137,6 +162,16 @@
 - [ ] Test iCal feed subscription in Google Calendar/Apple Calendar
 - [ ] Frame interactions in Farcaster client
 - [ ] Web dashboard on mobile devices
+
+### 🖼️ **Mini App Testing Checklist:**
+
+- [ ] Test Mini App manifest (`/.well-known/farcaster.json`)
+- [ ] Verify Mini App images display correctly (icon, splash, feed)
+- [ ] Test user context integration (username, FID, profile)
+- [ ] Test wallet actions (transaction prompts, chain switching)
+- [ ] Test Mini App in Farcaster Embed tool
+- [ ] Test Mini App on mobile Farcaster client
+- [ ] Verify account association for publishing
 
 ---
 
